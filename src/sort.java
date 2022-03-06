@@ -32,30 +32,33 @@ class BinarySearch {
 
 class QuickSort {
 
+    void sortArray(int array[], int high, int low) {
+        if(low > high) return;
+        int partitionIndex = this.partition(array, high, low);
 
-    int[] sortArray(int array[], int high, int low) {
-        int partitionIndex = this.partition(array);
+        this.sortArray(array, partitionIndex - 1, low);
+        this.sortArray(array, high, partitionIndex + 1);
 
-        this.sortArray(array, partitionIndex -1, 0);
-        this.sortArray(array, array.length-1, partitionIndex);
-
-        return array;
     }
 
-    void printArray (int array[]){
-        for (int item: array){
-            System.out.println(item);
+    void printArray(int array[]) {
+        for (int item : array) {
+            System.out.print(item);
+            System.out.print(", ");
         }
+        System.out.println("");
     }
 
 
-    int partition(int array[]) {
-        int pivot = array.length - 1;
-        int secondPivot = 0;
+    int partition(int array[], int high, int low) {
+        System.out.println("HIGH: " + high + ", " + "LOW: " +  low + ", ");
 
-        int n = 0;
-        while (n != array.length - 1) {
-            if (array[n] >= array[pivot]) {
+        int pivot = high;
+        int secondPivot = low;
+
+        int n = low;
+        while (n != high) {
+            if (array[n] <= array[pivot]) {
                 int temp = array[n];
                 array[n] = array[secondPivot];
                 array[secondPivot] = temp;
@@ -70,6 +73,9 @@ class QuickSort {
         array[pivot] = array[secondPivot];
         array[secondPivot] = temp;
 
+        System.out.println("PI: " + secondPivot);
+        System.out.print("Sorted: ");
+        this.printArray(array);
         return secondPivot;
     }
 }
@@ -77,8 +83,11 @@ class QuickSort {
 public class sort {
     public static void main(String[] args) {
         int array[] = {0, 2, 8, 6, 7, 4, 5, 8, 1, 9, 2};
+//        int array[] = {0, 2, 9, 1, 5};
         QuickSort qs = new QuickSort();
-        qs.sortArray(array, array.length, 0);
+        int high = array.length -1 ;
+        int low = 0;
+        qs.sortArray(array, high, low);
 
     }
 }
