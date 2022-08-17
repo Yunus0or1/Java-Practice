@@ -69,16 +69,14 @@ public class LinkedList {
         }
     }
 
-
     public static void createBinaryTree(BinaryNode parent, BinaryNode newBnd) {
-        BinaryNode  entryNode = null;
+        BinaryNode entryNode = null;
 
-        while(parent != null){
+        while (parent != null) {
             entryNode = parent;
             if (newBnd.getValue() > parent.getValue()) {
                 parent = parent.getRightNode();
-            }
-            else if (newBnd.getValue() <= parent.getValue()) {
+            } else if (newBnd.getValue() <= parent.getValue()) {
                 parent = parent.getLeftNode();
             }
         }
@@ -90,8 +88,6 @@ public class LinkedList {
             entryNode.setLeftNode(newBnd);
         }
     }
-
-
 
     private static void printBinaryLinkedList(BinaryNode bnd) {
         Stack<BinaryNode> stacks = new Stack<>();
@@ -130,7 +126,7 @@ public class LinkedList {
         HashSet<Node> set = new HashSet<Node>();
 
         while (nd != null) {
-            if(set.contains(nd)){
+            if (set.contains(nd)) {
                 System.out.print("Loop Exist");
                 return;
             }
@@ -139,7 +135,6 @@ public class LinkedList {
         }
         System.out.print("Loop Does not Exist");
     }
-
 
     private static BinaryNode makeBTree() {
         BinaryNode bnd1 = new BinaryNode(1);
@@ -175,18 +170,10 @@ public class LinkedList {
         return nd1;
     }
 
-
     public static void main(String[] args) {
 
         Node head = LinkedList.makeNode();
         LinkedList.detectLinkedListLoop(head);
 
-
-
-
-
     }
 }
-
-
-

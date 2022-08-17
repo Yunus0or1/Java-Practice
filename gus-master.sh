@@ -1,6 +1,5 @@
-read -p "Commit description: " desc
 git add .  
-git commit -m "$desc"
+git commit -m "Updated"
 git push origin master
 
 
