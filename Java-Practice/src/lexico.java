@@ -9,7 +9,7 @@ public class lexico {
         return index >= 0 && index < str.length();
     }
 
-    // Returning True if str1 is small
+    // Returning True if str1 is large
     public static boolean lexicompare(String str1, String str2) {
         int i = 0;
         int j = 0;
@@ -21,19 +21,19 @@ public class lexico {
             }
 
             else if (str1.charAt(i) < str2.charAt(j)) {
-                return true;
+                return false;
             }
 
             else if (str1.charAt(i) > str1.charAt(j)) {
-                return false;
+                return true;
             }
         }
 
         if (isValidIndex(str1, i)) {
-            return false;
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     public static void main(String[] args) {
