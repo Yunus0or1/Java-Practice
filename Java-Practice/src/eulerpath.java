@@ -21,15 +21,24 @@ class GraphConst {
             visited[i] = false;
         }
 
+        int noEdgeNode = 0;
+        for (int i = 0; i < this.v; i++) {
+            if (this.adj.get(i).size() == 0) {
+                noEdgeNode++;
+            }
+        }
+
+        if (noEdgeNode == this.v)
+            return true;
+
         dfs(visited);
         for (int i = 0; i < visited.length; i++) {
-            if (visited[i] == false) {
+            if (visited[i] == false && this.adj.get(i).size() > 0) {
                 return false;
             }
         }
 
         return true;
-
     }
 
     Boolean[] dfs(Boolean[] visited) {
@@ -51,7 +60,7 @@ class GraphConst {
         return visited;
     }
 
-    void degree() {
+    int[] degree() {
         int[] indegree = new int[v];
         int[] outdegree = new int[v];
 
@@ -64,33 +73,68 @@ class GraphConst {
                 indegree[nodeList.get(j)]++;
             }
         }
-
-        for (int i = 0; i < indegree.length; i++) {
-            System.out.print(indegree[i] + " ");
-        }
-        System.out.println();
-
-        for (int i = 0; i < indegree.length; i++) {
-            System.out.print(outdegree[i] + " ");
-        }
+        return indegree;
     }
 
     void addEdgeGraph(int node, int to) {
         this.adj.get(node).add(to);
         this.adj.get(to).add(node);
     }
+
 }
 
 class eulerpath {
 
-    public static void main(String[] args) {
-        GraphConst g1 = new GraphConst(5);
-        g1.addEdgeGraph(1, 0);
-        g1.addEdgeGraph(0, 2);
-        g1.addEdgeGraph(2, 1);
-        g1.addEdgeGraph(0, 3);
-        g1.addEdgeGraph(3, 4);
+    static void testEuler(GraphConst g) {
+        if (g.checkIfDisconnected() == false) {
+            System.out.println("No Euler path");
+        }
 
-        g1.degree();
+        int[] indegree = g.degree();
+
+        int oddCount = 0;
+        for (int i = 0; i < indegree.length; i++) {
+            if (indegree[i] % 2 == 1) {
+                oddCount++;
+            }
+        }
+
+        // No path or circuit
+        if (oddCount > 2) {
+            System.out.println("No Euler path");
+            return;
+        }
+
+        // circuit
+        if (oddCount == 0) {
+            System.out.println("Euler Circuit");
+            return;
+        }
+
+        // path/semi-eulerian
+        System.out.println("Euler Path Exists");
+    }
+
+    public static void main(String[] args) {
+        int V = 5;
+        GraphConst g1 = new GraphConst(V);
+        // g1.addEdgeGraph(1, 0);
+        // g1.addEdgeGraph(0, 2);
+        // g1.addEdgeGraph(2, 1);
+        // g1.addEdgeGraph(0, 3);
+        // g1.addEdgeGraph(3, 4);
+
+        // g1.addEdgeGraph(1, 0);
+        // g1.addEdgeGraph(0, 2);
+        // g1.addEdgeGraph(2, 1);
+        // g1.addEdgeGraph(0, 3);
+        // g1.addEdgeGraph(3, 4);
+        // g1.addEdgeGraph(1, 3);
+
+        g1.addEdgeGraph(0, 1);
+        g1.addEdgeGraph(1, 2);
+        g1.addEdgeGraph(2, 0);
+
+        testEuler(g1);
     }
 }
